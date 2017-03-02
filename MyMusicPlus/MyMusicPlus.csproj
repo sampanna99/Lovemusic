@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -205,12 +206,27 @@
     <Compile Include="Migrations\201703020329222_InitialModel.Designer.cs">
       <DependentUpon>201703020329222_InitialModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703020419168_AddedDomainmodels.cs" />
+    <Compile Include="Migrations\201703020419168_AddedDomainmodels.Designer.cs">
+      <DependentUpon>201703020419168_AddedDomainmodels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020432332_OverrideConventionsForGigsAndGenres.cs" />
+    <Compile Include="Migrations\201703020432332_OverrideConventionsForGigsAndGenres.Designer.cs">
+      <DependentUpon>201703020432332_OverrideConventionsForGigsAndGenres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020436348_populateGenreTable.cs" />
+    <Compile Include="Migrations\201703020436348_populateGenreTable.Designer.cs">
+      <DependentUpon>201703020436348_populateGenreTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\Gig.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\GigFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -270,6 +286,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Gigs\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -285,6 +302,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201703020329222_InitialModel.resx">
       <DependentUpon>201703020329222_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020419168_AddedDomainmodels.resx">
+      <DependentUpon>201703020419168_AddedDomainmodels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020432332_OverrideConventionsForGigsAndGenres.resx">
+      <DependentUpon>201703020432332_OverrideConventionsForGigsAndGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020436348_populateGenreTable.resx">
+      <DependentUpon>201703020436348_populateGenreTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
