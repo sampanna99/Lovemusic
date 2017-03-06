@@ -218,6 +218,10 @@
     <Compile Include="Migrations\201703020436348_populateGenreTable.Designer.cs">
       <DependentUpon>201703020436348_populateGenreTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703060253107_ChangedGigTable.cs" />
+    <Compile Include="Migrations\201703060253107_ChangedGigTable.Designer.cs">
+      <DependentUpon>201703060253107_ChangedGigTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -311,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703020436348_populateGenreTable.resx">
       <DependentUpon>201703020436348_populateGenreTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703060253107_ChangedGigTable.resx">
+      <DependentUpon>201703060253107_ChangedGigTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
