@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -10,6 +12,14 @@ namespace MyMusicPlus.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public ICollection<Following> Followers { get; set; }
+        public ICollection<Following> Followees { get; set; }
+
+        public ApplicationUser()
+        {
+            Followers = new Collection<Following>();
+            Followees = new Collection<Following>();
+        }
 
         [Required]
         [StringLength(100)]
@@ -28,6 +38,8 @@ namespace MyMusicPlus.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Following> Followings { get; set; }
+
         public DbSet<Attendance> Attendances { get; set; }
 
         public DbSet<Gig> Gigs { get; set; }
@@ -47,6 +59,8 @@ namespace MyMusicPlus.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Attendance>().HasRequired(a => a.Gig).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<ApplicationUser>().HasMany(a => a.Followees).WithRequired(a => a.Follower).WillCascadeOnDelete(false);
+            modelBuilder.Entity<ApplicationUser>().HasMany(a => a.Followers).WithRequired(a => a.Followee).WillCascadeOnDelete(false);
             base.OnModelCreating(modelBuilder);
         }
     }
