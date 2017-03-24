@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using MyMusicPlus.Models;
 using MyMusicPlus.ViewModel;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -28,6 +29,15 @@ namespace MyMusicPlus.Controllers
             return View("Gigs", viewModel);
         }
 
+        [Authorize]
+        public ActionResult Mine()
+        {
+            var userId = User.Identity.GetUserId();
+            var gigs = _context.Gigs.Where(g => g.ArtistId == userId && g.Datetime > DateTime.Now).
+                Include(g => g.Genre).ToList();
+
+            return View(gigs);
+        }
 
         [Authorize]
         public ActionResult Create()
@@ -60,7 +70,7 @@ namespace MyMusicPlus.Controllers
             };
             _context.Gigs.Add(gig);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Mine", "Gigs");
         }
     }
 }
