@@ -44,7 +44,8 @@ namespace MyMusicPlus.Controllers
         {
             var viewModel = new GigFormViewModel();
             viewModel.Genres = _context.Genres.ToList();
-            return View(viewModel);
+            viewModel.Heading = "Add a Gig";
+            return View("GigForm", viewModel);
         }
 
         [Authorize]
@@ -56,7 +57,7 @@ namespace MyMusicPlus.Controllers
             {
                 viewModel.Genres = _context.Genres.ToList();
 
-                return View("Create", viewModel);
+                return View("GigForm", viewModel);
             }
             var artistId = User.Identity.GetUserId();
             //var artist = _context.Users.Single(u => u.Id == artistId);
@@ -72,5 +73,47 @@ namespace MyMusicPlus.Controllers
             _context.SaveChanges();
             return RedirectToAction("Mine", "Gigs");
         }
+
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            var userId = User.Identity.GetUserId();
+            var gig = _context.Gigs.Single(a => a.Id == id && a.ArtistId == userId);
+
+            var viewModel = new GigFormViewModel
+            {
+                Heading = "Edit a Gig",
+                Id = gig.Id,
+                Genres = _context.Genres.ToList(),
+                Date = gig.Datetime.ToString("d MMM yyyy"),
+                Time = gig.Datetime.ToString("HH:mm"),
+                Genre = gig.GenreId,
+                Venue = gig.Venue
+            };
+            return View("GigForm", viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(GigFormViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Genres = _context.Genres.ToList();
+
+                return View("GigForm", viewModel);
+            }
+            var userId = User.Identity.GetUserId();
+            //var artist = _context.Users.Single(u => u.Id == artistId);
+            //var genre = _context.Genres.Single(g => g.Id == viewModel.Genre);
+            var gig = _context.Gigs.Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
+            gig.Venue = viewModel.Venue;
+            gig.Datetime = viewModel.GetDateTime();
+            gig.GenreId = viewModel.Genre;
+            _context.SaveChanges();
+            return RedirectToAction("Mine", "Gigs");
+        }
+
     }
 }
